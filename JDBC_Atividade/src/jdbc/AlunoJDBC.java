@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import entities.Aluno;
@@ -39,13 +42,40 @@ public class AlunoJDBC {
 		
 	}
 	
-	public List<Aluno> listar(Connection con) {
-			return null;
+	public List<Aluno> listar(Connection con) throws IOException, SQLException {
+		
+		List<Aluno> lista = new ArrayList<>();
+		
+		sql = "SELECT * FROM aluno";
+		Statement st = con.createStatement();					
+		ResultSet rs = st.executeQuery(sql);
+		
+		while(rs.next()) {
+			Aluno a = new Aluno(rs.getInt(1), rs.getString(2),  rs.getString(3),  rs.getDate("dt_nasc"));	
+			
+			lista.add(a);
+			
+		}
+		
+		rs.close();
+		st.close();
+		
+		return lista;
+	
+			
 	}
 	
-	public void apagar(int id, Connection con)  {
+	public void apagar(int id, Connection con) throws IOException, SQLException {
 		
-	
+		sql = "DELETE FROM aluno WHERE id=" + id;
+		Statement st = con.createStatement();	
+		ResultSet rs = st.executeQuery(sql);
+		
+
+		rs.close();
+		st.close();
+		
+		System.out.println("Aluno removido com sucesso!");
 		
 	}
 	

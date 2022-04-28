@@ -9,6 +9,20 @@ public class Aluno {
 	private String sexo;
 	private Date dt_nasc;
 	
+	public Aluno() {};
+	
+	@Override
+	public String toString() {
+		return "id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", dt_nasc=" + dt_nasc ;
+	}
+
+	public Aluno(int id, String nome, String sexo, Date dt_nasc) {
+		
+		this.id = id;
+		this.nome = nome;
+		this.sexo = sexo;
+		this.dt_nasc = dt_nasc;
+	}
 	public int getId() {
 		return id;
 	}

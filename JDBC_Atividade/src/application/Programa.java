@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 import entities.Aluno;
 import jdbc.AlunoJDBC;
@@ -58,40 +61,25 @@ public class Programa {
 					
 				}else if(opcao == 2) {
 					
-					String sql = "SELECT * FROM aluno";
-					Statement st = con.createStatement();					
-					ResultSet rs = st.executeQuery(sql);
 					
-					while(rs.next()) {
-						System.out.println(rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getDate("dt_nasc"));
+					List<Aluno> lista = new ArrayList<>();
+					AlunoJDBC acao = new AlunoJDBC();
+					
+					lista = acao.listar(con);
+					
+					Iterator<Aluno> li = lista.iterator();
+					
+					while(li.hasNext()) {
+						System.out.println(li.next().toString());
 					}
 					
-					rs.close();
-					st.close();
+					
 					
 				}else if(opcao == 4) {
-					Aluno a = new Aluno();
+					
 					AlunoJDBC acao = new AlunoJDBC();
-					int id = 0;
 					
-					System.out.println("Insira o id que deseja remover: ");
-					
-					
-					
-					id = Integer.parseInt(console.nextLine());
-					
-					String sql = "DELETE FROM aluno WHERE id=" + id;			
-					
-					Statement st = con.createStatement();	
-					ResultSet rs = st.executeQuery(sql);
-					
-					System.out.println("Aluno removido com sucesso!");
-					
-					
-					
-					rs.close();
-					st.close();
-					
+					acao.apagar(2, con);
 				
 				}
 				
